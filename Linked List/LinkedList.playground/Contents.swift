@@ -45,21 +45,30 @@ public class LinkedList<T> {
     
     
     /// Returns first node.
-    public var first: Node<T> {
+    public var first: Node<T>? {
         get {
-            return head!
+            if let headNode = head {
+                return headNode
+            }
+            else {
+                return nil
+            }
         }
     }
     
     
     /// Returns last node.
-    public var last: Node<T> {
+    public var last: Node<T>? {
         get {
-            var currentNode = head
-            while (currentNode != nil && currentNode?.next != nil) {
-                currentNode = currentNode?.next
+            if var node = head {
+                while node.next != nil {
+                    node = node.next!
+                }
+            return node
             }
-            return currentNode!
+            else {
+                return nil
+            }
         }
     }
 }
@@ -79,5 +88,5 @@ ll.printList()  // 1
                 // 2
                 // 3
 
-ll.first.data // 1
-ll.last.data  // 3
+ll.first!.data // 1
+ll.last!.data  // 3
