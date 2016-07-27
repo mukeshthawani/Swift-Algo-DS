@@ -64,7 +64,7 @@ public class LinkedList<T> {
                 while node.next != nil {
                     node = node.next!
                 }
-            return node
+                return node
             }
             else {
                 return nil
