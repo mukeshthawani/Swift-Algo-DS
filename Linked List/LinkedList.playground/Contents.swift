@@ -34,8 +34,7 @@ public class LinkedList<T> {
   
   
   /// Inserts a node at the front of the linked list.
-  public func push(data: T) {
-    let newNode = Node(data: data)
+  public func push(newNode: Node<T>) {
     newNode.next = self.head
     self.head = newNode
   }
