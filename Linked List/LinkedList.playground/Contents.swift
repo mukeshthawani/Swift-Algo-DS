@@ -3,7 +3,6 @@
 import Cocoa
 
 public class Node<T> {
-  
   var data: T
   var next: Node?
   
@@ -22,7 +21,7 @@ public class LinkedList<T> {
   }
   
   
-  /// This prints all elements of a linked list.
+  /// This prints all elements of the linked list.
   public func printList() {
     if var node = head {
       print(node.data)
@@ -42,7 +41,7 @@ public class LinkedList<T> {
   }
   
   
-  /// Returns first node.
+  /// Returns the first node.
   public var first: Node<T>? {
     get {
       if let headNode = head {
@@ -54,7 +53,7 @@ public class LinkedList<T> {
   }
   
   
-  /// Returns last node.
+  /// Returns the last node.
   public var last: Node<T>? {
     get {
       if var node = head {
@@ -67,6 +66,17 @@ public class LinkedList<T> {
       }
     }
   }
+  
+  /// Inserts a new node after the given node.
+  public func insertAfter(prevNode: Node<T>, node: Node<T>) {
+    let prevNextNode = prevNode.next
+    prevNode.next = node
+    guard let nextNode = prevNextNode else {
+      return
+    }
+    node.next = nextNode
+  }
+
 }
 
 let ll = LinkedList<Int>()
@@ -78,11 +88,15 @@ ll.head = first
 ll.head?.next = second
 second.next = third
 
+let newNode = Node(data: 10)
+ll.insertAfter(second, node: newNode)
+
 ll.head?.data   // 1
 
-ll.printList()  // 1
-// 2
-// 3
+ll.printList()  /* 1
+                   2
+                   10
+                   3 */
 
 ll.first!.data // 1
 ll.last!.data  // 3
