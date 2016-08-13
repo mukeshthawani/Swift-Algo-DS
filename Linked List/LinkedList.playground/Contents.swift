@@ -115,17 +115,19 @@ second.next = third
 let newNode = Node(data: 10)
 ll.insertAfter(second, node: newNode)
 
-ll.head?.data   // 1
+ll.head?.data                                 // 1
 
-ll.printList()  /* 1
-                   2
-                   10
-                   3 */
-ll.deleteNode(second)
-ll.deleteNode(first)
-ll.printList() /*  10
-                   3 */
+ll.printList()                                /* 1
+                                                 2
+                                                 10
+                                                 3 */
+
+ll.deleteNode(second)                         // 2
+ll.deleteNode(first)                          // 1
+
+ll.printList()                                /* 10
+                                                 3 */
  
-ll.head?.data  //  10
-ll.first!.data //  10
-ll.last!.data  //  3
+ll.head?.data                                 // 10
+ll.first!.data                                // 10
+ll.last!.data                                 // 3
