@@ -34,7 +34,7 @@ public class LinkedList<T> {
   
   
   /// Inserts a node at the front of the linked list.
-  public func push(newNode: Node<T>) {
+  public func push(_ newNode: Node<T>) {
     newNode.next = self.head
     self.head = newNode
   }
@@ -67,7 +67,7 @@ public class LinkedList<T> {
   }
   
   /// Inserts a new node after the given node.
-  public func insertAfter(prevNode: Node<T>, node: Node<T>) {
+  public func insertAfter(_ prevNode: Node<T>, node: Node<T>) {
     let prevNextNode = prevNode.next
     prevNode.next = node
     guard let nextNode = prevNextNode else {
@@ -75,7 +75,7 @@ public class LinkedList<T> {
     }
     node.next = nextNode
   }
-
+  
 }
 
 let ll = LinkedList<Int>()
