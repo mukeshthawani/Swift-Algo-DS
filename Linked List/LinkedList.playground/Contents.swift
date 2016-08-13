@@ -66,6 +66,24 @@ public class LinkedList<T> where T: Comparable {
     }
   }
   
+  /// Returns the number of nodes.
+  public var count: Int {
+    get {
+      guard let head = self.head else {
+        return 0
+      }
+      return getCount(head)
+    }
+  }
+  
+  /// Get count recursively.
+  private func getCount(_ node: Node<T>) -> Int{
+    guard let next = node.next else {
+      return 1
+    }
+    return getCount(next) + 1
+  }
+  
   /// Inserts a new node after the given node.
   public func insertAfter(_ prevNode: Node<T>, node: Node<T>) {
     let prevNextNode = prevNode.next
@@ -116,6 +134,10 @@ let newNode = Node(data: 10)
 ll.insertAfter(second, node: newNode)
 
 ll.head?.data                                 // 1
+
+ll.count                                      // 4
+let newList = LinkedList<Int>()
+newList.count                                 // 0
 
 ll.printList()                                /* 1
                                                  2
