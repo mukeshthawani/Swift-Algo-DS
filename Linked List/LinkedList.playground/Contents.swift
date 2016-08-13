@@ -12,7 +12,7 @@ public class Node<T> {
   }
 }
 
-public class LinkedList<T> {
+public class LinkedList<T> where T: Comparable {
   
   var head: Node<T>?
   
@@ -74,6 +74,31 @@ public class LinkedList<T> {
       return
     }
     node.next = nextNode
+  }
+  
+  /// Deletes the given node.
+  public func deleteNode(_ node: Node<T>) -> T? {
+    var prev: Node<T>
+    var temp: Node<T>
+    guard let head = head else {
+      return nil
+    }
+    temp = head
+    guard temp.data != node.data else {
+      self.head = node.next
+      node.next = nil
+      return node.data
+    }
+    while temp.next != nil {
+      prev = temp
+      temp = temp.next!
+      if temp.data == node.data {
+        prev.next = node.next
+        node.next = nil
+        return node.data
+      }
+    }
+    return nil
   }
   
 }
