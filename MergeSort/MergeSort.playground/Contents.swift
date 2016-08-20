@@ -17,7 +17,7 @@ class MergeSort<T where T: Comparable> {
     }
   }
   
-  private func merge(left: Int, middle: Int, right: Int) -> Array<T> {
+  private func merge(left: Int, middle: Int, right: Int) {
     let diff = (right - left)
     var tempArray = Array<T>()
     var leftIndex = left
@@ -49,10 +49,10 @@ class MergeSort<T where T: Comparable> {
    
     let start = tempArray.startIndex
     list[left...right] = tempArray[start...diff]
-    return list
   }
 }
 
 let list = [1,8,2,3,0,19,11,13,14]
 let merge = MergeSort<Int>(list: list)
 merge.mergeSort(left: 0, right: list.count-1)
+print(merge.list)
