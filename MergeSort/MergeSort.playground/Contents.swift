@@ -8,6 +8,7 @@ class MergeSort<T where T: Comparable> {
     self.list = list
   }
   
+  /// Sorts the subarray of a given array.
   func mergeSort(left: Int, right: Int){
     let middle = (left + right)/2
     if left < right {
@@ -17,13 +18,16 @@ class MergeSort<T where T: Comparable> {
     }
   }
   
+  /// Merges the two subarrays.
   private func merge(left: Int, middle: Int, right: Int) {
     let diff = (right - left)
     var tempArray = Array<T>()
     var leftIndex = left
     var rightIndex = middle + 1
+    
+    // Compare the elements and copy them.
     while leftIndex <= middle && rightIndex <= right {
-      
+    
       let currentLeftElement = list[leftIndex]
       let currentRightElement = list[rightIndex]
       if currentLeftElement < currentRightElement {
@@ -39,6 +43,8 @@ class MergeSort<T where T: Comparable> {
         rightIndex += 1
       }
     }
+    
+    // Copy remaining elements.
     if leftIndex <= middle {
       let remainingList = list[leftIndex...middle]
       tempArray = tempArray + remainingList
@@ -46,13 +52,20 @@ class MergeSort<T where T: Comparable> {
       let remainingList = list[rightIndex...right]
       tempArray = tempArray + remainingList
     }
-   
+    
+    // Updates the list.
     let start = tempArray.startIndex
     list[left...right] = tempArray[start...diff]
   }
 }
 
-let list = [1,8,2,3,0,19,11,13,14]
-let merge = MergeSort<Int>(list: list)
-merge.mergeSort(left: 0, right: list.count-1)
-print(merge.list)
+// Examples
+let firstList = [1,8,2,3,0,19,11,13,14]
+let merge = MergeSort<Int>(list: firstList)
+merge.mergeSort(left: 0, right: firstList.count-1)
+print(merge.list)                                   // [0,1,2,3,8,11,13,14,19]
+
+let secondList = [1,3,8,2,4,5]
+merge.list = secondList
+merge.mergeSort(left: 0, right: 5)
+print(merge.list)                                   // [1,2,3,4,5,8]
