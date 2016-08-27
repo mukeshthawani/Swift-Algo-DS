@@ -14,6 +14,7 @@ public class Node<T> {
 
 public class BinaryTree<T> where T: Comparable {
   
+  /// This returns height of the Binary tree.
   public func height(node: Node<T>?) -> Int {
     guard let node = node else {
       return 0
@@ -21,6 +22,7 @@ public class BinaryTree<T> where T: Comparable {
     return (1 + max(height(node: node.left), height(node: node.right)))
   }
   
+  /// This returns diameter of the Binary tree.
   public func diameter(node: Node<T>?) -> Int {
     guard let node = node else {
       return 0
