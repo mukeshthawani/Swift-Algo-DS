@@ -32,6 +32,13 @@ public class BinaryTree<T> where T: Comparable {
     
     return max(diameter(node: node.left), diameter(node: node.right), (1 + leftHeight + rightHeight))
   }
+  
+  public func description(node: Node<T>?) -> String{
+    guard  let node = node else {
+      return ""
+    }
+    return ("value: " + "\(node.data), " + "left: " + "[\(description(node: node.left))], " + "right: " + "[\(description(node: node.right))]")
+  }
 }
 
 let root = Node<Int>(data: 1)
@@ -46,3 +53,7 @@ root.left?.left?.left = Node<Int>(data: 5)
 let binaryTree = BinaryTree<Int>()
 print(binaryTree.height(node: root))                   // 5
 print(binaryTree.diameter(node: root))                 // 6
+
+print(binaryTree.description(node: root))              /* value: 1, left: [value: 2, left: [value: 4, left: [value: 5, left: [], right: []], right: 
+                                                          []], right: [value: 7, left: [], right: [value: 8, left: [], right: [value: 9, left: [],
+                                                          right: []]]]], right: [value: 3, left: [], right: []] */
