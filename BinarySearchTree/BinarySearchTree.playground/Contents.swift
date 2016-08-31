@@ -16,16 +16,15 @@ public class BinarySearchTree<T: Comparable> {
 
 extension BinarySearchTree {
   
+  /// Searches the BinarySearchTree for a given key.
   public func search(key: T) -> BinarySearchTree? {
     var node: BinarySearchTree? = self
-    while case let n? = node {
+    while let n = node {
       if key < n.data {
         node = n.left
-      }
-      else if key > n.data {
+      }else if key > n.data {
         node = n.right
-      }
-      else {
+      }else {
         return node
       }
     }
@@ -34,8 +33,8 @@ extension BinarySearchTree {
 }
 
 let binTree = BinarySearchTree<Int>(data: 3)
-binTree.left?.data = 2
-binTree.left?.left?.data = 1
-binTree.right?.data = 4
-binTree.right?.right?.data = 5
-print(binTree.search(key: 1))
+binTree.left = BinarySearchTree<Int>(data: 2)
+binTree.left?.left = BinarySearchTree<Int>(data: 1)
+binTree.right = BinarySearchTree<Int>(data: 4)
+binTree.right?.right = BinarySearchTree<Int>(data: 5)
+print(binTree.search(key: 5)?.data)
