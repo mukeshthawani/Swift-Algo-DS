@@ -34,31 +34,35 @@ extension BinarySearchTree {
 
 extension BinarySearchTree {
   
+  public func insert(key: T) -> T?{
+    let data = insertKey(node: self, key: key)
+    return data
+  }
+  
   /// Inserts a key at a leaf node.
-  public func insert(key: T) -> T? {
-    var node: BinarySearchTree? = self
-    while let n = node {
-      if key < n.data {
+  private func insertKey(node: BinarySearchTree?, key: T) -> T? {
+    guard let node = node else {
+      return nil
+    }
+      if key < node.data {
         
         // check if the left node is empty then add the new node.
-        if let left = node?.left {
-          node = left
-        }else {
-          node?.left = BinarySearchTree(data: key)
-          return node?.left?.data
+        if let left = node.left {
+          return insertKey(node: left, key: key)
+        } else {
+          node.left = BinarySearchTree(data: key)
+          return node.left?.data
         }
       } else {
         
         // check if the right node is empty then add the new node.
-        if let right = node?.right {
-          node = right
-        }else {
-          node?.right = BinarySearchTree(data: key)
-          return node?.right?.data
+        if let right = node.right {
+          return insertKey(node: right, key: key)
+        } else {
+          node.right = BinarySearchTree(data: key)
+          return node.right?.data
         }
       }
-    }
-    return nil
   }
 }
 
