@@ -12,6 +12,10 @@ public class BinarySearchTree<T: Comparable> {
   init(data: T) {
     self.data = data
   }
+  
+  public func hasRightChild() -> Bool {
+    return (self.right != nil)
+  }
 }
 
 extension BinarySearchTree {
@@ -75,3 +79,4 @@ print(binTree.search(key: 5)?.data)                       // 5
 
 print(binTree.insert(key: 6))                             // 6
 print(binTree.right?.right?.right?.data)                  // 6
+print(binTree.hasRightChild())                            // true
