@@ -14,7 +14,11 @@ public class BinarySearchTree<T: Comparable> {
   }
   
   public func hasRightChild() -> Bool {
-    return (self.right != nil)
+    return (right != nil)
+  }
+  
+  public func hasLeftChild() -> Bool {
+    return (left != nil)
   }
 }
 
@@ -80,3 +84,4 @@ print(binTree.search(key: 5)?.data)                       // 5
 print(binTree.insert(key: 6))                             // 6
 print(binTree.right?.right?.right?.data)                  // 6
 print(binTree.hasRightChild())                            // true
+print(binTree.hasLeftChild())                             // true
