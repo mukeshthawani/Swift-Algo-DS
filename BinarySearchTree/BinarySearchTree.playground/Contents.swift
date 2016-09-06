@@ -13,6 +13,10 @@ public class BinarySearchTree<T: Comparable> {
     self.data = data
   }
   
+  public func hasBothChildren() -> Bool {
+    return (right != nil && left != nil)
+  }
+  
   public func hasRightChild() -> Bool {
     return (right != nil)
   }
