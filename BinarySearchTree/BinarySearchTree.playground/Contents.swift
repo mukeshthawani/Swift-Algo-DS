@@ -80,59 +80,38 @@ extension BinarySearchTree {
 
 extension BinarySearchTree {
 
-  func deleteNode(node: BinarySearchTree?, key: T) -> T? {
+  public func deleteNode(node: BinarySearchTree?, key: T) -> BinarySearchTree? {
     guard let node = node else {
       return nil
     }
-    let parent = node.parent
     if node.data == key {
       if node.hasLeftChild() && node.hasRightChild() {
-        // Has both the children
+        // When both present.
         
         let successor = findSuccessor(node: node.right!)
+        
         // Remove successor from its earlier position.
-        successor.parent?.left = nil
+        deleteNode(node: node, key: successor.data)
         
         // Move both the childrens of node to be deleted to its successor.
         successor.left = node.left
         successor.right = node.right
     
         // If node to be deleted is left child of its parent then its successor will replace that position.
-        if parent?.left?.data == node.data {
-          parent?.left = successor
-        } else {
-          parent?.right = successor
-        }
-        return node.data
+        updateParent(node: node, currentChild: successor)
+        return successor
         
       } else if node.hasLeftChild() || node.hasRightChild() {
+        
         // Has only one child
-        
-        let nodeToTransfer: BinarySearchTree
-        
-        // Check which node to move.
-        if node.hasLeftChild() {
-          nodeToTransfer = node.left!
-        } else {
-          nodeToTransfer = node.right!
-        }
-        
-        // Update to new position.
-        if parent?.left?.data == node.data {
-          parent?.left = nodeToTransfer
-        } else {
-          parent?.right = nodeToTransfer
-        }
-        return node.data
+        let currentChild = getLeftOrRightChild(node: node)
+        updateParent(node: node, currentChild: currentChild!)
+        return currentChild
       } else {
 
         // leaf
-        if parent?.left?.data == node.data {
-          parent?.left = nil
-        } else {
-          parent?.right = nil
-        }
-        return node.data
+        updateParent(node: node, currentChild: nil)
+        return nil
       }
     } else {
       if key > node.data {
@@ -143,6 +122,28 @@ extension BinarySearchTree {
         return deleteNode(node: node.left, key: key)
       }
     }
+  }
+  
+  private func getLeftOrRightChild(node: BinarySearchTree) -> BinarySearchTree? {
+    if node.hasLeftChild() {
+      return node.left
+    } else {
+      return node.right
+    }
+  }
+  
+  private func updateParent(node: BinarySearchTree, currentChild: BinarySearchTree?) -> BinarySearchTree? {
+    
+    // Check which node to move.
+    let parent = node.parent
+    
+    // Update to new position.
+    if parent?.left?.data == node.data {
+      parent?.left = currentChild
+    } else {
+      parent?.right = currentChild
+    }
+    return parent
   }
   
   private func findSuccessor(node: BinarySearchTree) -> BinarySearchTree {
@@ -184,5 +185,5 @@ print(binTree.search(key: 5)?.data)                       // 5
 print(binTree.right?.right?.right?.data)                  // 6
 print(binTree.hasRightChild())                            // true
 print(binTree.hasLeftChild())                             // true
-print(binTree.deleteNode(node: binTree, key: 7))
-print(binTree.right?.data)
+let newRoot = binTree.deleteNode(node: binTree, key: 6)
+binTree.inorder()
