@@ -154,6 +154,24 @@ extension BinarySearchTree {
   }
 }
 
+extension BinarySearchTree {
+  
+  /// Inorder traversal of a given BST.
+  public func inorder() {
+    let node: BinarySearchTree? = self
+    inorderTraversal(node: node)
+  }
+  
+  private func inorderTraversal(node: BinarySearchTree?) {
+    guard let node = node else {
+      return
+    }
+    inorderTraversal(node: node.left)
+    print(node.data)
+    inorderTraversal(node: node.right)
+  }
+}
+
 let binTree = BinarySearchTree<Int>(data: 3)
 binTree.left = BinarySearchTree<Int>(data: 2)
 binTree.left?.left = BinarySearchTree<Int>(data: 1)
