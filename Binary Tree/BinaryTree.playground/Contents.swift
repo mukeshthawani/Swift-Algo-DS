@@ -41,6 +41,36 @@ public class BinaryTree<T> where T: Comparable {
   }
 }
 
+extension BinaryTree {
+  
+  public func inorder(node: Node<T>?) {
+    guard let node = node else {
+      return
+    }
+    inorder(node: node.left)
+    print(node.data)
+    inorder(node: node.right)
+  }
+  
+  public func preorder(node: Node<T>?) {
+    guard let node = node else {
+      return
+    }
+    print(node.data)
+    inorder(node: node.left)
+    inorder(node: node.right)
+  }
+  
+  public func postorder(node: Node<T>?) {
+    guard let node = node else {
+      return
+    }
+    inorder(node: node.left)
+    inorder(node: node.right)
+    print(node.data)
+  }
+}
+
 let root = Node<Int>(data: 1)
 root.left = Node<Int>(data: 2)
 root.right = Node<Int>(data: 3)
@@ -57,3 +87,5 @@ print(binaryTree.diameter(node: root))                 // 6
 print(binaryTree.description(node: root))              /* value: 1, left: [value: 2, left: [value: 4, left: [value: 5, left: [], right: []], right: 
                                                           []], right: [value: 7, left: [], right: [value: 8, left: [], right: [value: 9, left: [],
                                                           right: []]]]], right: [value: 3, left: [], right: []] */
+
+binaryTree.inorder(node: root)
