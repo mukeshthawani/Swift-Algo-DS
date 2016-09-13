@@ -173,6 +173,32 @@ extension BinarySearchTree {
   }
 }
 
+extension BinarySearchTree {
+  public func isValid() -> Bool{
+    if let left = self.left, let right = self.right {
+      if left.data < self.data && right.data > self.data {
+        left.isValid()
+        right.isValid()
+      } else {
+        return false
+      }
+    } else if let left = self.left {
+      if left.data < self.data {
+        left.isValid()
+      } else {
+        return false
+      }
+    } else if let right = self.right {
+      if right.data > self.data {
+        right.isValid()
+      } else {
+        return false
+      }
+    }
+    return true
+    }
+  }
+
 let binTree = BinarySearchTree<Int>(data: 3)
 binTree.left = BinarySearchTree<Int>(data: 2)
 binTree.left?.left = BinarySearchTree<Int>(data: 1)
@@ -185,5 +211,6 @@ print(binTree.search(key: 5)?.data)                       // 5
 print(binTree.right?.right?.right?.data)                  // 6
 print(binTree.hasRightChild())                            // true
 print(binTree.hasLeftChild())                             // true
-let newRoot = binTree.deleteNode(node: binTree, key: 6)
+//let newRoot = binTree.deleteNode(node: binTree, key: 6)
 binTree.inorder()
+binTree.isValid()
