@@ -24,6 +24,22 @@ public class BinarySearchTree<T: Comparable> {
   public func hasLeftChild() -> Bool {
     return (left != nil)
   }
+  
+  public func findMaximum() -> T {
+    var node: BinarySearchTree? = self
+    while ((node?.right) != nil) {
+      node = node?.right
+    }
+    return (node?.data)!
+  }
+  
+  public func findMinimum() -> T {
+    var node: BinarySearchTree? = self
+    while (node?.left != nil) {
+      node = node?.left
+    }
+    return (node?.data)!
+  }
 }
 
 extension BinarySearchTree {
@@ -214,3 +230,5 @@ print(binTree.hasLeftChild())                             // true
 //let newRoot = binTree.deleteNode(node: binTree, key: 6)
 binTree.inorder()
 binTree.isValid()
+binTree.findMaximum()                                     // 8
+binTree.findMinimum()                                     // 1
