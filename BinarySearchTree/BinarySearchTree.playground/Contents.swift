@@ -190,37 +190,29 @@ extension BinarySearchTree {
 }
 
 extension BinarySearchTree {
+  
+  /// Checks if given BT is a valid BST or not.
   public func isValid() -> Bool{
-    if let left = self.left, let right = self.right {
-      if left.data < self.data && right.data > self.data {
-        left.isValid()
-        right.isValid()
-      } else {
-        return false
-      }
-    } else if let left = self.left {
-      if left.data < self.data {
-        left.isValid()
-      } else {
-        return false
-      }
-    } else if let right = self.right {
-      if right.data > self.data {
-        right.isValid()
-      } else {
-        return false
-      }
-    }
-    return true
-    }
+    return nodeIsValid(node: self, min: self.findMinimum(), max: self.findMaximum())
   }
+  
+  private func nodeIsValid(node: BinarySearchTree?, min: T, max: T) -> Bool{
+    guard let node = node else {
+      return true
+    }
+    if node.data < min || node.data > max {
+      return false
+    }
+    return (nodeIsValid(node: node.left, min: min, max: node.data) && nodeIsValid(node: node.right, min: node.data, max: max))
+  }
+}
 
 let binTree = BinarySearchTree<Int>(data: 3)
 binTree.left = BinarySearchTree<Int>(data: 2)
 binTree.left?.left = BinarySearchTree<Int>(data: 1)
 binTree.right = BinarySearchTree<Int>(data: 7)
 binTree.right?.left = BinarySearchTree<Int>(data: 6)
-binTree.right?.right = BinarySearchTree<Int>(data: 9)
+binTree.right?.right = BinarySearchTree<Int>(data: 8)
 print(binTree.search(key: 5)?.data)                       // 5
 
 //print(binTree.insert(key: 6))                             // 6
@@ -229,6 +221,6 @@ print(binTree.hasRightChild())                            // true
 print(binTree.hasLeftChild())                             // true
 //let newRoot = binTree.deleteNode(node: binTree, key: 6)
 binTree.inorder()
-binTree.isValid()
+print(binTree.isValid())
 binTree.findMaximum()                                     // 8
 binTree.findMinimum()                                     // 1
